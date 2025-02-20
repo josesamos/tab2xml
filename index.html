@@ -50,8 +50,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="id_-tab2xml-"># tab2xml 
-<a class="anchor" aria-label="anchor" href="#id_-tab2xml-"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="tab2xml-">tab2xml 
+<a class="anchor" aria-label="anchor" href="#tab2xml-"></a>
 </h1>
 </div>
 <!-- badges: start -->
@@ -60,8 +60,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of <code>tab2xml</code> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the released version of <code>tab2xml</code> from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tab2xml"</span><span class="op">)</span></span></code></pre></div>
+<p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"josesamos/tab2xml"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -69,7 +72,7 @@
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>This example demonstrates how to use <code>tab2xml</code> to convert an Excel or ODS file into an XML file, based on a schema example from the <a href="https://mondrian.pentaho.com/documentation/schema.php" class="external-link">Mondrian Documentation</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://josesamos.github.io/tab2xml/">tab2xml</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Define file paths</span></span>
