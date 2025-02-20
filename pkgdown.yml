@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  tab2xml: tab2xml.html
+last_built: 2025-02-20T20:36Z
+urls:
+  reference: https://josesamos.github.io/tab2xml/reference
+  article: https://josesamos.github.io/tab2xml/articles
