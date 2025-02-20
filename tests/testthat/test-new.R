@@ -1,9 +1,9 @@
 test_that("new_sheet2xml correctly processes Excel and ODS files", {
 
   # Paths to source files
-  source_xml <- system.file("extdata", "schema_template.xml", package = "sheet2xml")
-  source_xlsx <- system.file("extdata", "schema.xlsx", package = "sheet2xml")
-  source_ods <- system.file("extdata", "schema.ods", package = "sheet2xml")
+  source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+  source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
+  source_ods <- system.file("extdata", "schema.ods", package = "tab2xml")
 
   # 1. Create an object from an Excel file (.xlsx)
   obj_xlsx <- new_sheet2xml(source_xlsx, source_xml)

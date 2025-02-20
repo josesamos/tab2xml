@@ -1,8 +1,8 @@
 test_that("get_root_template extracts the correct root token", {
 
   # Paths to source files
-  source_xml <- system.file("extdata", "schema_template.xml", package = "sheet2xml")
-  source_xlsx <- system.file("extdata", "schema.xlsx", package = "sheet2xml")
+  source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+  source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
 
   # Create a "sheet2xml" object
   obj <- new_sheet2xml(source_xlsx, source_xml)
@@ -30,7 +30,7 @@ test_that("get_root_template extracts the correct root token", {
                "The template must have one root and only one.")
 
   # 4. Test with ODS files
-  source_ods <- system.file("extdata", "schema.ods", package = "sheet2xml")
+  source_ods <- system.file("extdata", "schema.ods", package = "tab2xml")
   obj_ods <- new_sheet2xml(source_ods, source_xml)
 
   root_ods <- get_root_template(obj_ods)
@@ -43,8 +43,8 @@ test_that("get_root_template extracts the correct root token", {
 test_that("save_root_template saves the transformed XML correctly", {
 
   # Paths to source files
-  source_xml <- system.file("extdata", "schema_template.xml", package = "sheet2xml")
-  source_xlsx <- system.file("extdata", "schema.xlsx", package = "sheet2xml")
+  source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+  source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
 
   # Create a "sheet2xml" object
   obj <- new_sheet2xml(source_xlsx, source_xml)

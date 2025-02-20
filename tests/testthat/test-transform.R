@@ -1,8 +1,8 @@
 test_that("transform_template handles basic transformation correctly", {
 
   # Paths to source files
-  source_xml <- system.file("extdata", "schema_template.xml", package = "sheet2xml")
-  source_xlsx <- system.file("extdata", "schema.xlsx", package = "sheet2xml")
+  source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+  source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
 
   # Create a sheet2xml object
   ob <- new_sheet2xml(source_xlsx, source_xml)
@@ -29,8 +29,8 @@ test_that("transform_template handles basic transformation correctly", {
 test_that("transform_template handles row filtering", {
 
   # Paths to source files
-  source_xml <- system.file("extdata", "schema_template.xml", package = "sheet2xml")
-  source_xlsx <- system.file("extdata", "schema.xlsx", package = "sheet2xml")
+  source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+  source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
 
   # Create a sheet2xml object
   ob <- new_sheet2xml(source_xlsx, source_xml)
@@ -50,8 +50,8 @@ test_that("transform_template handles row filtering", {
 test_that("transform_template handles missing relationships", {
 
   # Paths to source files
-  source_xml <- system.file("extdata", "schema_template.xml", package = "sheet2xml")
-  source_xlsx <- system.file("extdata", "schema.xlsx", package = "sheet2xml")
+  source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+  source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
 
   # Create a sheet2xml object
   ob <- new_sheet2xml(source_xlsx, source_xml)

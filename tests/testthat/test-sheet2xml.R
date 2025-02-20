@@ -1,13 +1,13 @@
 test_that("sheet2xml works", {
-  source_xml <- system.file("extdata", "schema_template.xml", package = "sheet2xml")
+  source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
 
-  source_xlsx <- system.file("extdata", "schema.xlsx", package = "sheet2xml")
+  source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
   temp_file1 <- tempfile(fileext = ".xml")
   r1 <- sheet2xml(source_xlsx, source_xml, temp_file1)
 
   expect_equal(temp_file1, r1)
 
-  original_xml <- system.file("extdata", "schema_original.xml", package = "sheet2xml")
+  original_xml <- system.file("extdata", "schema_original.xml", package = "tab2xml")
 
   doc1 <- xml2::read_xml(original_xml)
   doc2 <- xml2::read_xml(temp_file1)
@@ -21,7 +21,7 @@ test_that("sheet2xml works", {
   expect_equal(xml1_text, xml2_text)
 
 
-  source_ods <- system.file("extdata", "schema.ods", package = "sheet2xml")
+  source_ods <- system.file("extdata", "schema.ods", package = "tab2xml")
   temp_file2 <- tempfile(fileext = ".xml")
   r2 <- sheet2xml(source_ods, source_xml, temp_file2)
 

@@ -17,7 +17,6 @@ knitr::opts_chunk$set(
 
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/tab2xml)](https://CRAN.R-project.org/package=tab2xml)
 [![Codecov test coverage](https://codecov.io/gh/josesamos/tab2xml/graph/badge.svg)](https://app.codecov.io/gh/josesamos/tab2xml)
 [![R-CMD-check](https://github.com/josesamos/tab2xml/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/josesamos/tab2xml/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
