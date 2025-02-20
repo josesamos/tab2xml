@@ -1,0 +1,3 @@
+        <Dimension name="{name}" foreignKey="{foreignKey}">
+            {Hierarchy}
+        </Dimension>

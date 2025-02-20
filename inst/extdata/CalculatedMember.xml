@@ -1,0 +1,3 @@
+        <CalculatedMember name="{name}" dimension="{dimension}" formula="{formula}">
+            {CalculatedMemberProperty}
+        </CalculatedMember>

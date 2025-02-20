@@ -1,0 +1,6 @@
+    <Cube name="{name}">
+        {Table}
+        {Dimension}
+        {Measure}
+        {CalculatedMember}
+    </Cube>

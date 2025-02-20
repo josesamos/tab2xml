@@ -1,0 +1,1 @@
+        <Measure name="{name}" column="{column}" aggregator="{aggregator}" formatString="{formatString}" />

@@ -1,0 +1,4 @@
+            <Hierarchy name="{name}" hasAll="{hasAll}" {allMemberName} primaryKey="{primaryKey}">
+                {Table}
+                {Level}
+            </Hierarchy>

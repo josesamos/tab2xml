@@ -1,0 +1,297 @@
+---
+title: "tab2xml: XML Generation from Tables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tab2xml: XML Generation from Tables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Introduction
+
+XML files are commonly used to configure various tools and applications. While there are dedicated tools for generating XML files through structured input forms, in many cases, it is beneficial to organize data in tables linked by primary and foreign keys, especially when dealing with large datasets or multiple instances of the same entity.  
+
+The `tab2xml` package provides a solution by enabling the generation of XML files based on predefined **templates** and structured tabular data stored in **Excel (.xlsx) or OpenDocument Spreadsheet (.ods) files**. By leveraging relational tables, users can efficiently handle and manage large-scale data entry, ensuring consistency and ease of modification.  
+
+This approach simplifies XML creation, making it more accessible and scalable when working with complex data structures.
+
+## Content  
+
+In addition to this introduction, the document includes:  
+
+- An example based on the definition of an XML schema for *Mondrian*, following the [Mondrian Documentation](https://mondrian.pentaho.com/documentation/schema.php).  
+
+- A breakdown of each schema element, detailing the corresponding tables, their relationships, and the XML templates used for data transformation.  
+
+- The process of transforming elements to generate the schema.
+
+
+# Example: Mondrian Schema
+
+
+```{r, echo=FALSE}
+library(xml2)
+
+source_xml <- system.file("extdata", "schema_original.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+```
+
+The starting point for this example is the Mondrian schema, based on a schema example from the [Mondrian Documentation](https://mondrian.pentaho.com/documentation/schema.php), shown below.
+
+```{r, echo=FALSE, results='asis'}
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+To define this schema, we can either edit the XML file directly or use the *Pentaho Schema Workbench* tool. Another approach is to break it down into tables and templates, work with the tables, and generate the required versions directly, as shown below.
+
+# Scheme decomposition
+
+Next, we will decompose the content of this schema into tables, defined as sheets in the spreadsheets files (.xlsx or .ods) included in the package, and templates.
+
+## Root of the schema template: `schema_template.xml`
+
+Below is the root of the schema template.
+
+```{r, echo=FALSE, results='asis'}
+source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+**The root can contain only one token** (in this case, the `{Cube}` token). If multiple tokens or none are found, an error is raised.  
+
+- Tokens are defined using a name enclosed in `{` and `}`. 
+
+- Token names are case-insensitive. 
+
+- **Tokens reference either sheets in the spreadsheet or columns in the sheet associated with each element**.
+
+In the example, a schema consists of one or more cubes.  
+
+Starting from the root, each element must have an associated **sheet** and a **template** file, where the sheet’s columns or other components are included.
+
+## Cube
+
+Only one cube is defined in the schema; therefore, the table contains only one row.  
+
+- If we need to reference this element from another, we add a **primary key column**. The name of this column **must consist of the sheet name followed by the `_pk` suffix**.  
+
+- To reference elements from another table, we add a **foreign key column**, named **after the referenced sheet with the `_fk` suffix**.  
+
+In this case, a cube has an associated table. However, since other elements can also have associated tables, we add the foreign key to the cube (as well as to each element with an associated table).
+
+```{r, echo=FALSE, results='asis'}
+library(tab2xml)
+
+source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
+
+data <- readxl::read_excel(source_xlsx, sheet = "Cube")
+print(knitr::kable(data))
+```
+
+
+Regarding the template, we can include two types of tokens:  
+
+- Tokens referencing **table columns**: these will be replaced with a value.  
+- Tokens referencing **other elements** (referenced by the sheet name): these will be replaced with another template.  
+
+```{r, echo=FALSE, results='asis'}
+source_xml <- system.file("extdata", "Cube.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+**When including tokens that reference other sheets, each token must be placed on a separate line, as they will be replaced with templates.**
+
+
+## Table
+
+Since the tables are referenced by other elements, we define a primary key with values to allow referencing (as we did from the cube).  
+
+```{r, echo=FALSE, results='asis'}
+data <- readxl::read_excel(source_xlsx, sheet = "Table")
+print(knitr::kable(data))
+```
+
+The template only needs to include the table name using the specified syntax.
+
+```{r, echo=FALSE, results='asis'}
+source_xml <- system.file("extdata", "Table.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+## Dimension
+
+Each dimension is included in a cube and can also contain other elements that reference it.  
+
+```{r, echo=FALSE, results='asis'}
+data <- readxl::read_excel(source_xlsx, sheet = "Dimension")
+print(knitr::kable(data))
+```
+
+In the template, the sheet's columns and the containing element (which includes one or more hierarchies) are referenced.
+
+```{r, echo=FALSE, results='asis'}
+source_xml <- system.file("extdata", "Dimension.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+## Hierarchy
+
+Hierarchies reference both the dimensions that contain them and their associated tables.  
+
+```{r, echo=FALSE, results='asis'}
+data <- readxl::read_excel(source_xlsx, sheet = "Hierarchy")
+print(knitr::kable(data))
+```
+
+In the template, we can see that it includes the table and the levels that make up the hierarchy.
+
+```{r, echo=FALSE, results='asis'}
+source_xml <- system.file("extdata", "Hierarchy.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+## Level
+
+Levels do not need to be referenced, so they do not include a primary key. Instead, they reference the hierarchies they belong to.  
+
+```{r, echo=FALSE, results='asis'}
+data <- readxl::read_excel(source_xlsx, sheet = "Level")
+print(knitr::kable(data))
+```
+
+The template references the columns of the associated sheet.
+
+```{r, echo=FALSE, results='asis'}
+source_xml <- system.file("extdata", "Level.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+
+## Measure
+
+Measures are included in cubes and must reference them. Since they do not need to be referenced, they do not require a primary key.  
+
+```{r, echo=FALSE, results='asis'}
+data <- readxl::read_excel(source_xlsx, sheet = "Measure")
+print(knitr::kable(data))
+```
+
+The template includes the columns from the sheet.
+
+```{r, echo=FALSE, results='asis'}
+source_xml <- system.file("extdata", "Measure.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+## CalculatedMember
+
+Calculated members may have components that must be referenceable (they have a primary key) and are included in cubes.  
+
+```{r, echo=FALSE, results='asis'}
+data <- readxl::read_excel(source_xlsx, sheet = "CalculatedMember")
+print(knitr::kable(data))
+```
+
+The template shows the elements they contain.
+
+```{r, echo=FALSE, results='asis'}
+source_xml <- system.file("extdata", "CalculatedMember.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+## CalculatedMemberProperty
+
+Finally, we have the properties of the calculated members they reference.  
+
+```{r, echo=FALSE, results='asis'}
+data <- readxl::read_excel(source_xlsx, sheet = "CalculatedMemberProperty")
+print(knitr::kable(data))
+```
+
+The template uses the columns from the corresponding sheet.
+
+```{r, echo=FALSE, results='asis'}
+source_xml <- system.file("extdata", "CalculatedMemberProperty.xml", package = "tab2xml")
+
+xml_content <- readLines(source_xml, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+# Generate the Schema
+
+To generate the schema, tokens in each template are replaced with corresponding values from a data source.  
+
+It handles both direct replacements from the associated sheet and foreign key relationships.  
+
+```{r example}
+library(tab2xml)
+
+# Define file paths
+source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
+temp_file <- tempfile(fileext = ".xml")
+
+# Convert spreadsheet to XML
+file <- sheet2xml(source_xlsx, source_xml, temp_file)
+```
+
+As shown in the example, we only need to specify:  
+
+- The **spreadsheet file**.  
+
+- The **root template**. The rest of the templates must be located in the same folder as the root template and are determined from the content of the templates being processed.  
+
+- The name of the **output XML file** (if none is specified, a file with the same name as the spreadsheet is created in the same location).
+
+The resulting output is shown below.
+
+```{r, results='asis'}
+library(xml2)
+
+xml_content <- readLines(file, warn = FALSE)
+
+cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
+```
+
+## Conclusions  
+
+The `tab2xml` package offers an efficient and scalable method for generating XML files from tabular data. By using structured templates and relational tables, the package facilitates the management of complex datasets while maintaining consistency and accuracy.  
+
+This approach is particularly advantageous for scenarios requiring the generation of large XML files or handling multiple entities with defined relationships. It streamlines the transformation process, reduces manual errors, and enhances maintainability by allowing users to modify the underlying data without altering the XML structure.  
+
+The provided example, based on the *Mondrian* schema, demonstrates how to apply this methodology to real-world use cases. This framework can be extended to other domains requiring XML generation from relational data, offering a flexible and robust solution for data-driven XML creation.
