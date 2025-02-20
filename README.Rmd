@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# # tab2xml <a href="https://josesamos.github.io/tab2xml/"><img src="man/figures/logo.png" align="right" height="139" alt="tab2xml website" /></a>
+# tab2xml <a href="https://josesamos.github.io/tab2xml/"><img src="man/figures/logo.png" align="right" height="139" alt="tab2xml website" /></a>
 
 
 <!-- badges: start -->
@@ -25,7 +25,12 @@ The goal of `tab2xml` is to convert spreadsheet files (.xlsx or .ods) into struc
 
 ## Installation
 
-You can install the development version of `tab2xml` from [GitHub](https://github.com/) with:
+You can install the released version of `tab2xml` from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("tab2xml")
+```
+And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("pak")
