@@ -9,7 +9,7 @@ template, and generates an XML output file."><meta property="og:image" content="
 
     <a class="navbar-brand me-2" href="../index.html">tab2xml</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,12 +77,12 @@ spreadsheet file.</p></dd>
 <span class="r-in"><span><span class="va">source_xlsx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"schema.xlsx"</span>, package <span class="op">=</span> <span class="st">"tab2xml"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">temp_file1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".xml"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sheet2xml</span><span class="op">(</span><span class="va">source_xlsx</span>, <span class="va">source_xml</span>, <span class="va">temp_file1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpXXFcMU/file1bec180f5e82.xml"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpp5jWfu/file1ca441fa0ed.xml"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">source_ods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"schema.ods"</span>, package <span class="op">=</span> <span class="st">"tab2xml"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">temp_file2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".xml"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sheet2xml</span><span class="op">(</span><span class="va">source_ods</span>, <span class="va">source_xml</span>, <span class="va">temp_file2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpXXFcMU/file1bec328b4145.xml"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpp5jWfu/file1ca435b61b1e.xml"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
