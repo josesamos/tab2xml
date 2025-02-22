@@ -5,9 +5,13 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/tab2xml)](https://CRAN.R-project.org/package=tab2xml)
+[![R-CMD-check](https://github.com/josesamos/tab2xml/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/josesamos/tab2xml/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/josesamos/tab2xml/graph/badge.svg)](https://app.codecov.io/gh/josesamos/tab2xml)
-[![R-CMD-check](https://github.com/josesamos/tab2xml/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/josesamos/tab2xml/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+Downloads](http://cranlogs.r-pkg.org/badges/grand-total/tab2xml)](https://cran.r-project.org/package=tab2xml)
 <!-- badges: end -->
 
 The goal of `tab2xml` is to convert spreadsheet files (.xlsx or .ods)
