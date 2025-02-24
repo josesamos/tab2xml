@@ -39,7 +39,7 @@ new_sheet2xml <- function(file_path, template_path, xml_path = NULL) {
   } else if (extension == "ods") {
     sheet_names <- readODS::ods_sheets(file_path)
     sheets_data <- lapply(seq_along(sheet_names), function(sheet)
-      readODS::read_ods(file_path, sheet = sheet))
+      readODS::read_ods(file_path, sheet = sheet, col_types = NA))
 
   } else {
     stop("Unsupported format. Use a .xlsx or .ods file.")
