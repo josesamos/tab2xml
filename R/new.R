@@ -34,7 +34,7 @@ new_sheet2xml <- function(file_path, template_path, xml_path = NULL) {
   if (extension == "xlsx") {
     sheet_names <- readxl::excel_sheets(file_path)
     sheets_data <- lapply(sheet_names, function(sheet)
-      readxl::read_excel(file_path, sheet = sheet))
+      readxl::read_excel(file_path, sheet = sheet, col_types = "text"))
 
   } else if (extension == "ods") {
     sheet_names <- readODS::ods_sheets(file_path)
