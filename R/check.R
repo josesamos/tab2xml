@@ -8,19 +8,62 @@
 #' transformation process.
 #'
 #' @export
-check_tab <- function(file_path, template_path) {
+check_tab <- function(file_path, template_path = NULL) {
 
+  if (is.null(template_path)) {
+    sheets <- get_sheets_data(file_path)
+    root <- NULL
+  } else {
+    ob <- new_sheet2xml(file_path, template_path)
+    sheets <- ob$sheets
+    templates <- ob$templates
+    root <- ob$root
+  }
 
-  template_path <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+  check_keys(sheets)
+  if (!is.null(root)) {
 
-  file_path <- system.file("extdata", "schema.xlsx", package = "tab2xml")
-
-
-  ob <- new_sheet2xml(file_path, template_path)
-
-  root <- get_root_template(ob)
-
+  }
+  TRUE
 }
 
 
-# Simplificar el archivo XML (eliminar nodos vacíos)
+#'
+#' @keywords internal
+#' @noRd
+check_columns <- function(sheets, templates) {
+  template_names <- names(templates)
+  for (name in template_names) {
+    template <- templates[[name]]
+    tokens <- get_tokens(template)
+    table <- sheets[[name]]
+    for (token in setdiff(tokens, template_names)) {
+      if (!(token %in% names(table))) {
+        warning("Token '", token, "' does not exist in sheet '", name, "'.")
+      }
+    }
+  }
+  TRUE
+}
+
+
+#'
+#' @keywords internal
+#' @noRd
+check_keys <- function(sheets) {
+  for (name in names(sheets)) {
+    pk <- paste0(name, '_pk')
+    table <- sheets[[name]]
+    if (pk %in% names(table)) {
+      validate_pk(table, name)
+      fk <- paste0(name, '_fk')
+      for (name2 in setdiff(names(sheets), name)) {
+        table2 <- sheets[[name2]]
+        if (fk %in% names(table2)) {
+          validate_fk(table, name, table2, name2)
+        }
+      }
+    }
+  }
+  TRUE
+}

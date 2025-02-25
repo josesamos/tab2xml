@@ -6,7 +6,7 @@
 Comprueba la relación entre claves primarias y foráneas.
 Avisa de todos los errores encontrados.}
 \usage{
-check_tab(file_path, template_path)
+check_tab(file_path, template_path = NULL)
 }
 \arguments{
 \item{file_path}{Character. Path to the spreadsheet file to be converted.}
