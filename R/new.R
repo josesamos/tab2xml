@@ -33,13 +33,20 @@ new_sheet2xml <- function(file_path, template_path, xml_path = NULL) {
 
   sheets_template <- list()
 
-  # get template names
+  # get original template names
   dir <- dirname(template_path)
+
+  all_files <- list.files(dir, full.names = TRUE)
+  file_names_actual <- basename(all_files)
+  file_names_actual_lower <- tolower(file_names_actual)
+
   templates <- paste0(dir, '/', sheet_names, '.xml')
   templates <- c(template_path, templates)
 
-  # read templates
-  sheets_template <- lapply(templates, read_template)
+  matched_files <- all_files[match(basename(templates), file_names_actual_lower, nomatch = 0)]
+
+  # read templates (with original names)
+  sheets_template <- lapply(matched_files, read_template)
   names(sheets_template) <- c('__config__', sheet_names)
 
   sheets_template <- lapply(sheets_template, convert_tokens_lowercase)
