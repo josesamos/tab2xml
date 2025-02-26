@@ -1,5 +1,6 @@
 # tab2xml (development version)
 
+* Add `check_tab()` function.
 * Add `optimize` parameter to `sheet2xml()` function.
 * Read spreadsheet cells in text format.
 

@@ -1,12 +1,15 @@
+
+#' Validate and Check Spreadsheet Data
 #'
-#' Comprueba que todos los tokens estén definidos en las tablas.
-#' Comprueba la relación entre claves primarias y foráneas.
-#' Avisa de todos los errores encontrados.
+#' This function validates the structure of a spreadsheet file by checking its
+#' sheets, primary keys (PKs), and foreign keys (FKs). If a template file is provided,
+#' it also checks the column definitions.
 #'
-#' @param file_path Character. Path to the spreadsheet file to be converted.
-#' @param template_path Character. Path to the XML template file to guide the
-#' transformation process.
+#' @param file_path Character. Path to the spreadsheet file to be validated.
+#' @param template_path Character (optional). Path to the template file for validation.
+#' If `NULL`, only the sheet structure is checked.
 #'
+#' @return Logical. Returns "TRUE" but warns of possible errors.
 #' @export
 check_tab <- function(file_path, template_path = NULL) {
 
@@ -22,24 +25,45 @@ check_tab <- function(file_path, template_path = NULL) {
 
   check_keys(sheets)
   if (!is.null(root)) {
-
+    check_columns(sheets, templates)
   }
   TRUE
 }
 
 
+#' Validate Column Names Against Template
+#'
+#' This function checks whether the column names in the spreadsheet match the
+#' expected tokens defined in a template. It ensures that all required columns
+#' exist and issues warnings for any missing or extra columns.
+#'
+#' @param sheets A named list of data frames representing the spreadsheet sheets.
+#' @param templates A named list of template definitions for validation.
+#'
+#' @return Logical. Returns `TRUE` after performing the checks.
 #'
 #' @keywords internal
 #' @noRd
 check_columns <- function(sheets, templates) {
   template_names <- names(templates)
+  sheet_names <- names(sheets)
+  if (!setequal(template_names, sheet_names)) {
+    warning("The spreadsheet sheets and templates do not match.")
+  }
+  pks_fks <- c(paste0(sheet_names, "_pk"), paste0(sheet_names, "_fk"))
   for (name in template_names) {
     template <- templates[[name]]
     tokens <- get_tokens(template)
     table <- sheets[[name]]
+    fields <- names(table)
     for (token in setdiff(tokens, template_names)) {
       if (!(token %in% names(table))) {
         warning("Token '", token, "' does not exist in sheet '", name, "'.")
+      }
+    }
+    for (field in setdiff(fields, pks_fks)) {
+      if (!(field %in% tokens)) {
+        warning("Field '", field, "' does not exist in template '", name, "'.")
       }
     }
   }
@@ -47,6 +71,14 @@ check_columns <- function(sheets, templates) {
 }
 
 
+#' Validate Primary and Foreign Keys in a Spreadsheet
+#'
+#' This function checks if each sheet in a spreadsheet contains a valid primary key (PK)
+#' and validates foreign key (FK) relationships between tables.
+#'
+#' @param sheets A named list of data frames representing the spreadsheet sheets.
+#'
+#' @return Logical. Returns `TRUE` after performing the key validations.
 #'
 #' @keywords internal
 #' @noRd

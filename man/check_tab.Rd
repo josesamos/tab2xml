@@ -2,20 +2,21 @@
 % Please edit documentation in R/check.R
 \name{check_tab}
 \alias{check_tab}
-\title{Comprueba que todos los tokens estén definidos en las tablas.
-Comprueba la relación entre claves primarias y foráneas.
-Avisa de todos los errores encontrados.}
+\title{Validate and Check Spreadsheet Data}
 \usage{
 check_tab(file_path, template_path = NULL)
 }
 \arguments{
-\item{file_path}{Character. Path to the spreadsheet file to be converted.}
+\item{file_path}{Character. Path to the spreadsheet file to be validated.}
 
-\item{template_path}{Character. Path to the XML template file to guide the
-transformation process.}
+\item{template_path}{Character (optional). Path to the template file for validation.
+If `NULL`, only the sheet structure is checked.}
+}
+\value{
+Logical. Returns "TRUE" but warns of possible errors.
 }
 \description{
-Comprueba que todos los tokens estén definidos en las tablas.
-Comprueba la relación entre claves primarias y foráneas.
-Avisa de todos los errores encontrados.
+This function validates the structure of a spreadsheet file by checking its
+sheets, primary keys (PKs), and foreign keys (FKs). If a template file is provided,
+it also checks the column definitions.
 }
