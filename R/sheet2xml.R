@@ -11,6 +11,7 @@
 #' @param xml_path Character (optional). Output path for the generated XML file.
 #' If NULL, it is considered an XML file with the same name and location as the
 #' spreadsheet file.
+#' @param optimize Boolean. Remove empty nodes from the xml file.
 #'
 #' @return Character. The file path of the generated XML document.
 #'
@@ -26,7 +27,8 @@
 #' sheet2xml(source_ods, source_xml, temp_file2)
 #'
 #' @export
-sheet2xml <- function(file_path, template_path, xml_path = NULL) {
+sheet2xml <- function(file_path, template_path, xml_path = NULL, optimize = FALSE) {
+
   ob <- new_sheet2xml(file_path, template_path, xml_path)
 
   root <- get_root_template(ob)
@@ -35,6 +37,11 @@ sheet2xml <- function(file_path, template_path, xml_path = NULL) {
 
   file_name <- save_root_template(ob, root, result)
 
+  if (optimize) {
+    content <- xml2::read_xml(file)
+    remove_empty_nodes(content)
+    xml2::write_xml(content, file)
+  }
   file_name
 }
 

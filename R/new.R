@@ -23,38 +23,15 @@
 #' @keywords internal
 #' @noRd
 new_sheet2xml <- function(file_path, template_path, xml_path = NULL) {
-  if (!file.exists(file_path)) {
-    stop("The file does not exist: ", file_path)
-  }
 
-  extension <- tools::file_ext(file_path)
-  sheets_data <- list()
-  sheets_template <- list()
-
-  if (extension == "xlsx") {
-    sheet_names <- readxl::excel_sheets(file_path)
-    sheets_data <- lapply(sheet_names, function(sheet)
-      readxl::read_excel(file_path, sheet = sheet, col_types = "text"))
-
-  } else if (extension == "ods") {
-    sheet_names <- readODS::ods_sheets(file_path)
-    sheets_data <- lapply(seq_along(sheet_names), function(sheet)
-      readODS::read_ods(file_path, sheet = sheet, col_types = NA))
-
-  } else {
-    stop("Unsupported format. Use a .xlsx or .ods file.")
-  }
+  sheets_data <- get_sheets_data(file_path)
+  sheet_names <- names(sheets_data)
 
   if (is.null(xml_path)) {
     xml_path <- paste0(tools::file_path_sans_ext(file_path), ".xml")
   }
 
-  names(sheets_data) <- tolower(sheet_names)
-
-  sheets_data <- lapply(sheets_data, function(df) {
-    colnames(df) <- tolower(colnames(df))
-    return(df)
-  })
+  sheets_template <- list()
 
   # get template names
   dir <- dirname(template_path)
@@ -78,4 +55,51 @@ new_sheet2xml <- function(file_path, template_path, xml_path = NULL) {
     ),
     class = "sheet2xml"
   )
+}
+
+
+
+#' Retrieve Data from an Excel or ODS File
+#'
+#' Reads all sheets from a given `.xlsx` or `.ods` file and returns a list
+#' of data frames, ensuring all column names are converted to lowercase.
+#'
+#' @param file_path A character string specifying the path to the Excel (`.xlsx`)
+#' or ODS (`.ods`) file.
+#'
+#' @return A named list of data frames, where each element corresponds to a sheet
+#' from the input file. Column names are converted to lowercase.
+#'
+#' @keywords internal
+#' @noRd
+get_sheets_data <- function(file_path) {
+  if (!file.exists(file_path)) {
+    stop("The file does not exist: ", file_path)
+  }
+
+  extension <- tools::file_ext(file_path)
+  sheets_data <- list()
+
+  if (extension == "xlsx") {
+    sheet_names <- readxl::excel_sheets(file_path)
+    sheets_data <- lapply(sheet_names, function(sheet)
+      readxl::read_excel(file_path, sheet = sheet, col_types = "text"))
+
+  } else if (extension == "ods") {
+    sheet_names <- readODS::ods_sheets(file_path)
+    sheets_data <- lapply(seq_along(sheet_names), function(sheet)
+      readODS::read_ods(file_path, sheet = sheet, col_types = NA))
+
+  } else {
+    stop("Unsupported format. Use a .xlsx or .ods file.")
+  }
+
+  names(sheets_data) <- tolower(sheet_names)
+
+  sheets_data <- lapply(sheets_data, function(df) {
+    colnames(df) <- tolower(colnames(df))
+    return(df)
+  })
+
+  sheets_data
 }
