@@ -7,7 +7,12 @@
 <url><loc>https://josesamos.github.io/tab2xml/authors.html</loc></url>
 <url><loc>https://josesamos.github.io/tab2xml/index.html</loc></url>
 <url><loc>https://josesamos.github.io/tab2xml/news/index.html</loc></url>
+<url><loc>https://josesamos.github.io/tab2xml/reference/check_tab.html</loc></url>
 <url><loc>https://josesamos.github.io/tab2xml/reference/index.html</loc></url>
+<url><loc>https://josesamos.github.io/tab2xml/reference/is_cell_empty.html</loc></url>
+<url><loc>https://josesamos.github.io/tab2xml/reference/remove_empty_nodes.html</loc></url>
 <url><loc>https://josesamos.github.io/tab2xml/reference/sheet2xml.html</loc></url>
+<url><loc>https://josesamos.github.io/tab2xml/reference/validate_fk.html</loc></url>
+<url><loc>https://josesamos.github.io/tab2xml/reference/validate_pk.html</loc></url>
 </urlset>
 
