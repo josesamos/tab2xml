@@ -4,7 +4,7 @@
 \alias{sheet2xml}
 \title{Convert a Spreadsheet to XML}
 \usage{
-sheet2xml(file_path, template_path, xml_path = NULL)
+sheet2xml(file_path, template_path, xml_path = NULL, optimize = FALSE)
 }
 \arguments{
 \item{file_path}{Character. Path to the spreadsheet file to be converted.
@@ -16,6 +16,8 @@ transformation process.}
 \item{xml_path}{Character (optional). Output path for the generated XML file.
 If NULL, it is considered an XML file with the same name and location as the
 spreadsheet file.}
+
+\item{optimize}{Boolean. Remove empty nodes from the xml file.}
 }
 \value{
 Character. The file path of the generated XML document.

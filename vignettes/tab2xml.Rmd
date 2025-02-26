@@ -31,6 +31,8 @@ In addition to this introduction, the document includes:
 
 - A breakdown of each schema element, detailing the corresponding tables, their relationships, and the XML templates used for data transformation.  
 
+- Validation of relational schema and template consistency.
+
 - The process of transforming elements to generate the schema.
 
 
@@ -252,6 +254,32 @@ xml_content <- readLines(source_xml, warn = FALSE)
 cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
 ```
 
+# Validation of Relational Schema and Template Consistency 
+
+The `check_tab()` function is designed to validate the structure and consistency of spreadsheet data against predefined templates, ensuring data integrity before further processing, such as XML generation.  
+
+- Reads and extracts sheets from an Excel (`.xlsx`) or OpenDocument Spreadsheet (`.ods`) file.  
+- Ensures that primary and foreign keys are properly structured across related tables.  
+- If a template file is provided, it cross-checks the spreadsheet against expected column names and relationships.  
+- It verifies that all required fields exist and warns if any are missing or incorrectly named.  
+
+
+## Usage Example
+
+```{r}
+library(tab2xml)
+
+# Define file paths
+source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
+source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
+
+# check files
+check_tab(source_xlsx, source_xml)
+```
+
+Reports all possible errors it detects. In this case, there is no error. When finished it always returns TRUE.
+
+
 # Generate the Schema
 
 To generate the schema, tokens in each template are replaced with corresponding values from a data source.  
@@ -259,11 +287,7 @@ To generate the schema, tokens in each template are replaced with corresponding 
 It handles both direct replacements from the associated sheet and foreign key relationships.  
 
 ```{r example}
-library(tab2xml)
-
-# Define file paths
-source_xml <- system.file("extdata", "schema_template.xml", package = "tab2xml")
-source_xlsx <- system.file("extdata", "schema.xlsx", package = "tab2xml")
+# Define output file
 temp_file <- tempfile(fileext = ".xml")
 
 # Convert spreadsheet to XML
