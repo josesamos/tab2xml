@@ -42,6 +42,7 @@ sheet2xml <- function(file_path, template_path, xml_path = NULL, optimize = FALS
     remove_empty_nodes(content)
     xml2::write_xml(content, file_name)
   }
+
   file_name
 }
 
