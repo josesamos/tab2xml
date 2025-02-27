@@ -67,7 +67,7 @@ for (sheet in sheet_names) {
 ### Convert spreadsheet to XML
 
 ```{r}
-file <- sheet2xml(source_xlsx, source_xml, temp_file)
+file <- sheet2xml(source_xlsx, source_xml, temp_file, optimize = TRUE)
 ```
 
 ### Check output

@@ -122,7 +122,7 @@ for (sheet in sheet_names) {
 ### Convert spreadsheet to XML
 
 ``` r
-file <- sheet2xml(source_xlsx, source_xml, temp_file)
+file <- sheet2xml(source_xlsx, source_xml, temp_file, optimize = TRUE)
 ```
 
 ### Check output
@@ -136,31 +136,31 @@ cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
 ```
 
 ``` xml
+<?xml version="1.0" encoding="UTF-8"?>
 <Schema>
-    <Cube name="Sales">
-                <Table name="sales_fact_1997" />
-        <Dimension name="Gender" foreignKey="customer_id">
-            <Hierarchy name="Gender" hasAll="true" allMemberName="All Genders" primaryKey="customer_id">
-                <Table name="customer" />
-                <Level name="Gender" column="gender" type="String" uniqueMembers="true" />
-            </Hierarchy>
-        </Dimension>
-        <Dimension name="Time" foreignKey="time_id">
-            <Hierarchy name="Time" hasAll="false"  primaryKey="time_id">
-                <Table name="time_by_day" />
-                <Level name="Year" column="the_year" type="Numeric" uniqueMembers="true" />
-                <Level name="Quarter" column="quarter" type="Numeric" uniqueMembers="false" />
-                <Level name="Month" column="month_of_year" type="Numeric" uniqueMembers="false" />
-            </Hierarchy>
-        </Dimension>
-        <Measure name="Unit Sales" column="unit_sales" aggregator="sum" formatString="#,###" />
-        <Measure name="Store Sales" column="store_sales" aggregator="sum" formatString="#,###.##" />
-        <Measure name="Store Cost" column="store_cost" aggregator="sum" formatString="#,###.00" />
-        <CalculatedMember name="Profit" dimension="Measures" formula="[Measures].[Store Sales] - [Measures].[Store Cost]">
-            <CalculatedMemberProperty name="FORMAT_STRING" value="$#,##0.00" />
-            
-        </CalculatedMember>
-    </Cube>
+  <Cube name="Sales">
+    <Table name="sales_fact_1997"/>
+    <Dimension name="Gender" foreignKey="customer_id">
+      <Hierarchy name="Gender" hasAll="true" allMemberName="All Genders" primaryKey="customer_id">
+        <Table name="customer"/>
+        <Level name="Gender" column="gender" type="String" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="Time" foreignKey="time_id">
+      <Hierarchy name="Time" hasAll="false" primaryKey="time_id">
+        <Table name="time_by_day"/>
+        <Level name="Year" column="the_year" type="Numeric" uniqueMembers="true"/>
+        <Level name="Quarter" column="quarter" type="Numeric" uniqueMembers="false"/>
+        <Level name="Month" column="month_of_year" type="Numeric" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Unit Sales" column="unit_sales" aggregator="sum" formatString="#,###"/>
+    <Measure name="Store Sales" column="store_sales" aggregator="sum" formatString="#,###.##"/>
+    <Measure name="Store Cost" column="store_cost" aggregator="sum" formatString="#,###.00"/>
+    <CalculatedMember name="Profit" dimension="Measures" formula="[Measures].[Store Sales] - [Measures].[Store Cost]">
+      <CalculatedMemberProperty name="FORMAT_STRING" value="$#,##0.00"/>
+    </CalculatedMember>
+  </Cube>
 </Schema>
 ```
 

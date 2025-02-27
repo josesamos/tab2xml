@@ -291,7 +291,7 @@ It handles both direct replacements from the associated sheet and foreign key re
 temp_file <- tempfile(fileext = ".xml")
 
 # Convert spreadsheet to XML
-file <- sheet2xml(source_xlsx, source_xml, temp_file)
+file <- sheet2xml(source_xlsx, source_xml, temp_file, optimize = TRUE)
 ```
 
 As shown in the example, we only need to specify:  
@@ -301,6 +301,8 @@ As shown in the example, we only need to specify:
 - The **root template**. The rest of the templates must be located in the same folder as the root template and are determined from the content of the templates being processed.  
 
 - The name of the **output XML file** (if none is specified, a file with the same name as the spreadsheet is created in the same location).
+
+- Using the `optimize` parameter we indicate that we want to eliminate empty nodes.
 
 The resulting output is shown below.
 

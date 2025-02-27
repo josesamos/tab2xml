@@ -38,9 +38,9 @@ sheet2xml <- function(file_path, template_path, xml_path = NULL, optimize = FALS
   file_name <- save_root_template(ob, root, result)
 
   if (optimize) {
-    content <- xml2::read_xml(file)
+    content <- xml2::read_xml(file_name)
     remove_empty_nodes(content)
-    xml2::write_xml(content, file)
+    xml2::write_xml(content, file_name)
   }
   file_name
 }
