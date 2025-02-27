@@ -51,8 +51,6 @@ new_sheet2xml <- function(file_path, template_path, xml_path = NULL) {
 
   sheets_template <- lapply(sheets_template, convert_tokens_lowercase)
 
-  names(sheets_template) <- tolower(names(sheets_template))
-
   structure(
     list(
       xml_path = xml_path,
