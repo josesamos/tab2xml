@@ -129,6 +129,10 @@ file <- sheet2xml(source_xlsx, source_xml, temp_file, optimize = TRUE)
 
 ``` r
 library(xml2)
+#> Warning: package 'xml2' was built under R version 4.4.3
+```
+
+``` r
 
 xml_content <- readLines(file, warn = FALSE)
 

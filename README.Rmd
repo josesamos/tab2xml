@@ -82,4 +82,3 @@ cat("```xml\n", paste(xml_content, collapse = "\n"), "\n```", sep = "")
 
 
 In this way, we can organize and work with the data in tabular form and generate XML documents directly using the provided templates.
-
