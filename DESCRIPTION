@@ -1,7 +1,7 @@
 Type: Package
 Package: tab2xml
 Title: XML Generation from Tables
-Version: 1.1.0
+Version: 1.1.0.9000
 Authors@R: c(
     person("Jose", "Samos", , "jsamos@ugr.es", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4457-3439")),
