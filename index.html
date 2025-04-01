@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tab2xml</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -332,37 +332,39 @@
 <h3 id="check-output">Check output<a class="anchor" aria-label="anchor" href="#check-output"></a>
 </h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://xml2.r-lib.org/" class="external-link">xml2</a></span><span class="op">)</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://xml2.r-lib.org" class="external-link">xml2</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'xml2' was built under R version 4.4.3</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">xml_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">file</span>, warn <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"```xml\n"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">xml_content</span>, collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span>, <span class="st">"\n```"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>&lt;<span class="kw">Schema</span>&gt;</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  &lt;<span class="kw">Cube</span><span class="ot"> name=</span><span class="st">"Sales"</span>&gt;</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>    &lt;<span class="kw">Table</span><span class="ot"> name=</span><span class="st">"sales_fact_1997"</span>/&gt;</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    &lt;<span class="kw">Dimension</span><span class="ot"> name=</span><span class="st">"Gender"</span><span class="ot"> foreignKey=</span><span class="st">"customer_id"</span>&gt;</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>      &lt;<span class="kw">Hierarchy</span><span class="ot"> name=</span><span class="st">"Gender"</span><span class="ot"> hasAll=</span><span class="st">"true"</span><span class="ot"> allMemberName=</span><span class="st">"All Genders"</span><span class="ot"> primaryKey=</span><span class="st">"customer_id"</span>&gt;</span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>        &lt;<span class="kw">Table</span><span class="ot"> name=</span><span class="st">"customer"</span>/&gt;</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>        &lt;<span class="kw">Level</span><span class="ot"> name=</span><span class="st">"Gender"</span><span class="ot"> column=</span><span class="st">"gender"</span><span class="ot"> type=</span><span class="st">"String"</span><span class="ot"> uniqueMembers=</span><span class="st">"true"</span>/&gt;</span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>      &lt;/<span class="kw">Hierarchy</span>&gt;</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>    &lt;/<span class="kw">Dimension</span>&gt;</span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    &lt;<span class="kw">Dimension</span><span class="ot"> name=</span><span class="st">"Time"</span><span class="ot"> foreignKey=</span><span class="st">"time_id"</span>&gt;</span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>      &lt;<span class="kw">Hierarchy</span><span class="ot"> name=</span><span class="st">"Time"</span><span class="ot"> hasAll=</span><span class="st">"false"</span><span class="ot"> primaryKey=</span><span class="st">"time_id"</span>&gt;</span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>        &lt;<span class="kw">Table</span><span class="ot"> name=</span><span class="st">"time_by_day"</span>/&gt;</span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>        &lt;<span class="kw">Level</span><span class="ot"> name=</span><span class="st">"Year"</span><span class="ot"> column=</span><span class="st">"the_year"</span><span class="ot"> type=</span><span class="st">"Numeric"</span><span class="ot"> uniqueMembers=</span><span class="st">"true"</span>/&gt;</span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>        &lt;<span class="kw">Level</span><span class="ot"> name=</span><span class="st">"Quarter"</span><span class="ot"> column=</span><span class="st">"quarter"</span><span class="ot"> type=</span><span class="st">"Numeric"</span><span class="ot"> uniqueMembers=</span><span class="st">"false"</span>/&gt;</span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>        &lt;<span class="kw">Level</span><span class="ot"> name=</span><span class="st">"Month"</span><span class="ot"> column=</span><span class="st">"month_of_year"</span><span class="ot"> type=</span><span class="st">"Numeric"</span><span class="ot"> uniqueMembers=</span><span class="st">"false"</span>/&gt;</span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>      &lt;/<span class="kw">Hierarchy</span>&gt;</span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>    &lt;/<span class="kw">Dimension</span>&gt;</span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>    &lt;<span class="kw">Measure</span><span class="ot"> name=</span><span class="st">"Unit Sales"</span><span class="ot"> column=</span><span class="st">"unit_sales"</span><span class="ot"> aggregator=</span><span class="st">"sum"</span><span class="ot"> formatString=</span><span class="st">"#,###"</span>/&gt;</span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>    &lt;<span class="kw">Measure</span><span class="ot"> name=</span><span class="st">"Store Sales"</span><span class="ot"> column=</span><span class="st">"store_sales"</span><span class="ot"> aggregator=</span><span class="st">"sum"</span><span class="ot"> formatString=</span><span class="st">"#,###.##"</span>/&gt;</span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>    &lt;<span class="kw">Measure</span><span class="ot"> name=</span><span class="st">"Store Cost"</span><span class="ot"> column=</span><span class="st">"store_cost"</span><span class="ot"> aggregator=</span><span class="st">"sum"</span><span class="ot"> formatString=</span><span class="st">"#,###.00"</span>/&gt;</span>
-<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>    &lt;<span class="kw">CalculatedMember</span><span class="ot"> name=</span><span class="st">"Profit"</span><span class="ot"> dimension=</span><span class="st">"Measures"</span><span class="ot"> formula=</span><span class="st">"[Measures].[Store Sales] - [Measures].[Store Cost]"</span>&gt;</span>
-<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>      &lt;<span class="kw">CalculatedMemberProperty</span><span class="ot"> name=</span><span class="st">"FORMAT_STRING"</span><span class="ot"> value=</span><span class="st">"$#,##0.00"</span>/&gt;</span>
-<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>    &lt;/<span class="kw">CalculatedMember</span>&gt;</span>
-<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>  &lt;/<span class="kw">Cube</span>&gt;</span>
-<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>&lt;/<span class="kw">Schema</span>&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>&lt;<span class="kw">Schema</span>&gt;</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  &lt;<span class="kw">Cube</span><span class="ot"> name=</span><span class="st">"Sales"</span>&gt;</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    &lt;<span class="kw">Table</span><span class="ot"> name=</span><span class="st">"sales_fact_1997"</span>/&gt;</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    &lt;<span class="kw">Dimension</span><span class="ot"> name=</span><span class="st">"Gender"</span><span class="ot"> foreignKey=</span><span class="st">"customer_id"</span>&gt;</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>      &lt;<span class="kw">Hierarchy</span><span class="ot"> name=</span><span class="st">"Gender"</span><span class="ot"> hasAll=</span><span class="st">"true"</span><span class="ot"> allMemberName=</span><span class="st">"All Genders"</span><span class="ot"> primaryKey=</span><span class="st">"customer_id"</span>&gt;</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>        &lt;<span class="kw">Table</span><span class="ot"> name=</span><span class="st">"customer"</span>/&gt;</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>        &lt;<span class="kw">Level</span><span class="ot"> name=</span><span class="st">"Gender"</span><span class="ot"> column=</span><span class="st">"gender"</span><span class="ot"> type=</span><span class="st">"String"</span><span class="ot"> uniqueMembers=</span><span class="st">"true"</span>/&gt;</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>      &lt;/<span class="kw">Hierarchy</span>&gt;</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>    &lt;/<span class="kw">Dimension</span>&gt;</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>    &lt;<span class="kw">Dimension</span><span class="ot"> name=</span><span class="st">"Time"</span><span class="ot"> foreignKey=</span><span class="st">"time_id"</span>&gt;</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>      &lt;<span class="kw">Hierarchy</span><span class="ot"> name=</span><span class="st">"Time"</span><span class="ot"> hasAll=</span><span class="st">"false"</span><span class="ot"> primaryKey=</span><span class="st">"time_id"</span>&gt;</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>        &lt;<span class="kw">Table</span><span class="ot"> name=</span><span class="st">"time_by_day"</span>/&gt;</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>        &lt;<span class="kw">Level</span><span class="ot"> name=</span><span class="st">"Year"</span><span class="ot"> column=</span><span class="st">"the_year"</span><span class="ot"> type=</span><span class="st">"Numeric"</span><span class="ot"> uniqueMembers=</span><span class="st">"true"</span>/&gt;</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>        &lt;<span class="kw">Level</span><span class="ot"> name=</span><span class="st">"Quarter"</span><span class="ot"> column=</span><span class="st">"quarter"</span><span class="ot"> type=</span><span class="st">"Numeric"</span><span class="ot"> uniqueMembers=</span><span class="st">"false"</span>/&gt;</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>        &lt;<span class="kw">Level</span><span class="ot"> name=</span><span class="st">"Month"</span><span class="ot"> column=</span><span class="st">"month_of_year"</span><span class="ot"> type=</span><span class="st">"Numeric"</span><span class="ot"> uniqueMembers=</span><span class="st">"false"</span>/&gt;</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>      &lt;/<span class="kw">Hierarchy</span>&gt;</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>    &lt;/<span class="kw">Dimension</span>&gt;</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>    &lt;<span class="kw">Measure</span><span class="ot"> name=</span><span class="st">"Unit Sales"</span><span class="ot"> column=</span><span class="st">"unit_sales"</span><span class="ot"> aggregator=</span><span class="st">"sum"</span><span class="ot"> formatString=</span><span class="st">"#,###"</span>/&gt;</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>    &lt;<span class="kw">Measure</span><span class="ot"> name=</span><span class="st">"Store Sales"</span><span class="ot"> column=</span><span class="st">"store_sales"</span><span class="ot"> aggregator=</span><span class="st">"sum"</span><span class="ot"> formatString=</span><span class="st">"#,###.##"</span>/&gt;</span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>    &lt;<span class="kw">Measure</span><span class="ot"> name=</span><span class="st">"Store Cost"</span><span class="ot"> column=</span><span class="st">"store_cost"</span><span class="ot"> aggregator=</span><span class="st">"sum"</span><span class="ot"> formatString=</span><span class="st">"#,###.00"</span>/&gt;</span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>    &lt;<span class="kw">CalculatedMember</span><span class="ot"> name=</span><span class="st">"Profit"</span><span class="ot"> dimension=</span><span class="st">"Measures"</span><span class="ot"> formula=</span><span class="st">"[Measures].[Store Sales] - [Measures].[Store Cost]"</span>&gt;</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>      &lt;<span class="kw">CalculatedMemberProperty</span><span class="ot"> name=</span><span class="st">"FORMAT_STRING"</span><span class="ot"> value=</span><span class="st">"$#,##0.00"</span>/&gt;</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>    &lt;/<span class="kw">CalculatedMember</span>&gt;</span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>  &lt;/<span class="kw">Cube</span>&gt;</span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a>&lt;/<span class="kw">Schema</span>&gt;</span></code></pre></div>
 <p>In this way, we can organize and work with the data in tabular form and generate XML documents directly using the provided templates.</p>
 </div>
 </div>
